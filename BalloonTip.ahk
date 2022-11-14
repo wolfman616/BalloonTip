@@ -1,11 +1,14 @@
 ;	BalloonTip @ Xords - Matthew Wolff (2022)
 
-; BalloonTip("blablablah","Title:",2955,22,false)
+; use: BalloonTip("blablablah","Title:",2955,22,false)
+;		|| BalloonTip("blablablah",2955,22) 
+;		|| BalloonTip("blablablah")
 ; return,
  
 BalloonTip(txt,title,x="",y="",isGuiExist="",Dur:=5) {
 	isint(title)? (Dur:=isGuiExist, isGuiExist:=y
 	, y:=x, x:=title, title:="") : ()
+	(isint(isGuiExist)?isGuiExist>1?Dur:=isGuiExist,isGuiExist:="")
 	(!x?x:=a_screenwidth), (!y?y:=a_screenheight-20)
 	if isGuiExist
 		gui,add,edit,disabled x%x% y%y% w1 h1 hwndhWnd
