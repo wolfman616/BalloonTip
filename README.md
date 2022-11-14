@@ -1,6 +1,6 @@
 # BalloonTip
 Configurable Balloon-Tip in AHKL
-Shows at coords provided for durationtion provided
+Shows at coords provided, for duration provided. Creates a smaller bubble when no title provided.
 
 <img width="130" alt="Clipboarder 2022 11 14" src="https://user-images.githubusercontent.com/62726599/201686956-e493cafc-194f-424a-b4a7-0a01aa44239e.png">
 
