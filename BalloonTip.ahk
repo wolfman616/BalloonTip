@@ -1,23 +1,24 @@
 ;	BalloonTip @ Xords - Matthew Wolff (2022)
 
-; use: BalloonTip("blablablah","Title:",2955,22,false)
+; use: 
+BalloonTip("blablablah","Title:",2955,22,false,5)
 ;		|| BalloonTip("blablablah",2955,22) 
 ;		|| BalloonTip("blablablah")
 ; return,
  
-BalloonTip(txt,title="",x="",y="",isGuiExist="",Dur:=5) {
-	isint(title)? (Dur:=isGuiExist, isGuiExist:=y
-	, y:=x, x:=title, title:="") : ()
-	(isint(isGuiExist)?isGuiExist>1?Dur:=isGuiExist,isGuiExist:="")
-	(!x?x:=a_screenwidth :()),	(!y?y:=a_screenheight-20)
+BalloonTip(txt,title="",x="",y="",isGuiExist="",Dur="") {
+	isint(title)? (Dur:=isGuiExist, isGuiExist:=Y
+	, Y:=X, X:=title, title:="") : (), (Dur=""?Dur:=5)
+	(isint(isGuiExist)?isint(isGuiExist)?Dur:=isGuiExist,isGuiExist:="")
+	(!X?X:=a_screenwidth-400 :()),	(!Y?Y:=a_screenheight-80)
 	if isGuiExist
-		gui,add,edit,disabled x%x% y%y% w1 h1 hwndhWnd
+		gui,add,edit,disabled x%X% y%Y% w1 h1 hwndhEdit
 	else {
 		gui,testt:new,-dpiscale
-		gui,testt:add,edit,disabled x%x% y%y% w1 h1 hwndhWnd
+		gui,testt:add,edit,disabled x%X% y%Y% w1 h1 hwndhEdit
 	}
-	_ShowBalloonTip(hWnd,title,txt,"")
-	(fn:= Func("BallKill").Bind(Dur,hWnd)).Call(Dur)
+	_ShowBalloonTip(hEdit,title,txt,"")
+	(fn:= Func("BallClean").Bind(Dur,hEdit)).Call(Dur,hEdit)
 	return,
 }
 
@@ -48,10 +49,11 @@ HideBalloonTip(hEdit) {
 	Return,ErrorLevel
 }
 
-BallKill(Dur,hWnd) {
-	sleep,% Dur*1000
+BallClean(Dur,hWnd) {
+	(Dur<1000?Dur*=1000)
+	sleep,% Dur
 	HideBalloonTip(hWnd)
-	DllCall("SetParent","uint",hWnd,"uint","")
+	;DllCall("SetParent","uint",hWnd,"uint","")
 	gui,testt:destroy
 }
 
