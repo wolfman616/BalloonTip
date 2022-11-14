@@ -5,11 +5,11 @@
 ;		|| BalloonTip("blablablah")
 ; return,
  
-BalloonTip(txt,title,x="",y="",isGuiExist="",Dur:=5) {
+BalloonTip(txt,title="",x="",y="",isGuiExist="",Dur:=5) {
 	isint(title)? (Dur:=isGuiExist, isGuiExist:=y
 	, y:=x, x:=title, title:="") : ()
 	(isint(isGuiExist)?isGuiExist>1?Dur:=isGuiExist,isGuiExist:="")
-	(!x?x:=a_screenwidth), (!y?y:=a_screenheight-20)
+	(!x?x:=a_screenwidth :()),	(!y?y:=a_screenheight-20)
 	if isGuiExist
 		gui,add,edit,disabled x%x% y%y% w1 h1 hwndhWnd
 	else {
