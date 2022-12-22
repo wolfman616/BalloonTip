@@ -6,20 +6,25 @@
 ; return,
  
 BalloonTip(txt,title="",x="",y="",isGuiExist="",Dur="") {
+static init, hedwnd
 	isint(title)? (Dur:=isGuiExist, isGuiExist:=Y
 	, Y:=X, X:=title, title:="") : (), (Dur=""?Dur:=5)
 	(isint(isGuiExist)?isGuiExist>1?Dur:=isGuiExist,isGuiExist:="")
-	(!X?X:=a_screenwidth-400 :()),	(!Y?Y:=a_screenheight-80)
+	(!X?X:=a_Screenwidth-400 :()),	(!Y?Y:=a_Screenheight-80)
 	if isGuiExist
-		gui,add,edit,disabled x%X% y%Y% w1 h1 hwndhEdit
-	else {
-		gui,testt:new,-dpiscale
-		gui,testt:add,edit,disabled x%X% y%Y% w1 h1 hwndhEdit
-	}
+		gui,add,edit,disabled x%X% y%Y% w1 h1 hwndhedwnd
+	;else,if(init) {
+	;	win_animate(hEditx,"hide slide vpos",900) 
+	;	try gui,testt:destroy
+	;}
+	init:= True
+	gui,testt:new,-dpiscale
+	gui,testt:add,edit,disabled x%X% y%Y% w1 h1 hwndhedwnd
+	
 
-	_ShowBalloonTip(hEdit,title,txt,"")
-	(fn:= Func("BallClean").Bind(Dur,hEdit)).Call(Dur,hEdit)
-	return,
+	
+
+	return,_ShowBalloonTip(hedwnd,title,txt,""), 
 }
 
 _ShowBalloonTip(hEdit,p_Title,p_Text,p_Icon:=0) {
