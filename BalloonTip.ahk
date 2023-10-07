@@ -20,9 +20,6 @@ static init, hedwnd
 	init:= True
 	gui,testt:new,-dpiscale
 	gui,testt:add,edit,disabled x%X% y%Y% w1 h1 hwndhedwnd
-	
-
-	
 
 	return,_ShowBalloonTip(hedwnd,title,txt,""), 
 }
